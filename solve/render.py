@@ -55,16 +55,22 @@ def render_layout(problem: Problem, placements: List[Dict], out_png: str, max_di
     if zone is not None:
         d.polygon([P(p) for p in zone], outline="#CC4444", fill="#F5DADA")
 
-    # door segment (bold)
-    p0, p1 = P(door.p0), P(door.p1)
-    d.line([p0, p1], fill="#CC2222", width=max(3, round(scale * 60)))
-    # swing arrow (inward)
+    # door: a thick marker offset INTO the room (so nothing is drawn outside the
+    # outline). Its outer edge lies exactly on the wall segment = the doorway line.
+    n_in = door.inward
+    thick = 55.0
+    marker = [door.p0, door.p1,
+              geom.add(door.p1, geom.mul(n_in, thick)),
+              geom.add(door.p0, geom.mul(n_in, thick))]
+    d.polygon([P(x) for x in marker], outline="#CC2222", fill="#E86666")
+    # inward swing indicator
     if door.is_open_inward:
         mid = ((door.p0[0] + door.p1[0]) / 2, (door.p0[1] + door.p1[1]) / 2)
-        tip = (mid[0] + door.inward[0] * door.width * 0.9, mid[1] + door.inward[1] * door.width * 0.9)
+        tip = (mid[0] + n_in[0] * door.width * 0.9, mid[1] + n_in[1] * door.width * 0.9)
         d.line([P(mid), P(tip)], fill="#CC2222", width=2)
 
-    # fridge front bands first (under items)
+    # fridge clearance band: draw ONLY the effective (room-side) face band, so the
+    # picture never shows a band sticking out through the wall
     by_name = {it.name: it for it in problem.items}
     for p in placements:
         it = by_name.get(p.get("name"))
@@ -76,12 +82,15 @@ def render_layout(problem: Problem, placements: List[Dict], out_png: str, max_di
         corners = geom.rect_corners(center, length, width, ang)
         u = (math.cos(math.radians(ang)), math.sin(math.radians(ang)))
         v = (-u[1], u[0])
+        chosen = None
         for sign in (1, -1):
             cA, cB = (corners[2], corners[3]) if sign == 1 else (corners[0], corners[1])
-            n = geom.mul(v, sign)
-            off = geom.mul(n, length / 2.0)
+            off = geom.mul(geom.mul(v, sign), length / 2.0)
             band = [cA, cB, geom.add(cB, off), geom.add(cA, off)]
-            d.polygon([P(x) for x in band], outline="#F28E2B", fill="#FCE7C8")
+            if chosen is None and geom.rect_inside_polygon(band, room.poly, 1e-2):
+                chosen = band          # the room-side face = the effective clearance
+        if chosen is not None:
+            d.polygon([P(x) for x in chosen], outline="#F28E2B", fill="#FCE7C8")
 
     # items
     for p in placements:
@@ -98,7 +107,7 @@ def render_layout(problem: Problem, placements: List[Dict], out_png: str, max_di
 
     # legend
     ly = H - 96
-    d.text((10, ly), "房间轮廓 | 门/内开区 | 物品(冰箱=蓝/制冰机=紫/货架=绿/离地架=黄) | 橙=冰箱开门净空", fill="#333333")
+    d.text((10, ly), "房间轮廓 | 门/内开区 | 物品(冰箱=蓝/制冰机=紫/货架=绿/离地架=黄) | 橙=冰箱开门净空(生效侧，画在房间内的那条)", fill="#333333")
 
     img.save(out_png)
     print("rendered", out_png)
