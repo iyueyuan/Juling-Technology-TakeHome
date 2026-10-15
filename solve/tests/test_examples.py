@@ -44,6 +44,14 @@ class TestEndToEnd(unittest.TestCase):
                 self.assertEqual(vr["metrics"]["itemsTouchingWall"], len(problem.items))
                 self.assertAlmostEqual(vr["metrics"]["fridgeClearanceMm"], _fridge_clearance(problem), places=6)
 
+    def test_determinism(self):
+        for k in (1, 2, 3, 4):
+            with self.subTest(example=k):
+                problem = model.load_problem(os.path.join(INPUT, "example%d.json" % k))
+                r1 = solver.solve(problem, solver.Config(time_limit=30, seed=0))
+                r2 = solver.solve(problem, solver.Config(time_limit=30, seed=0))
+                self.assertEqual(_serialize(r1), _serialize(r2))
+
 
 if __name__ == "__main__":
     unittest.main()
