@@ -169,6 +169,16 @@ def _dedup(placements: List[Placement]) -> List[Placement]:
     return out
 
 
+def _surface_angles(edge_ang: float, config: Config) -> Tuple[float, ...]:
+    """Item orientations to try against a surface of direction ``edge_ang``."""
+    if config.orientation == "axis":
+        # strict 0/90 mode: a slanted surface cannot host a flush axis-aligned item
+        if min(geom.mod90_diff(edge_ang, 0.0), geom.mod90_diff(edge_ang, 90.0)) > geom.AXIS_SNAP_TOL:
+            return ()
+        return (0.0, 90.0)
+    return (edge_ang, geom.normalize_angle(edge_ang + 90.0))
+
+
 def _wall_candidates(item: Item, room: Room, door: Door, config: Config) -> List[Placement]:
     door_zone = door.zone_corners()
     out: List[Placement] = []
@@ -177,7 +187,7 @@ def _wall_candidates(item: Item, room: Room, door: Door, config: Config) -> List
         n = geom.interior_normal(a, b, room.poly)
         L = geom.dist(a, b)
         edge_ang = geom.angle_of(a, b)
-        for ang in (edge_ang, geom.normalize_angle(edge_ang + 90.0)):
+        for ang in _surface_angles(edge_ang, config):
             u, v = _axes(ang)
             fit = _fits_surface(item, t, u, v)
             if fit is None:
@@ -226,7 +236,7 @@ def _object_anchored(item: Item, placed: List[Placement], room: Room,
             t = geom.unit(d)
             m = (t[1], -t[0])      # outward normal of a CCW side
             side_ang = geom.angle_of(p, q)
-            for ang in (side_ang, geom.normalize_angle(side_ang + 90.0)):
+            for ang in _surface_angles(side_ang, config):
                 u, v = _axes(ang)
                 fit = _fits_surface(item, t, u, v)
                 if fit is None:

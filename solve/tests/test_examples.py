@@ -52,6 +52,19 @@ class TestEndToEnd(unittest.TestCase):
                 r2 = solver.solve(problem, solver.Config(time_limit=30, seed=0))
                 self.assertEqual(_serialize(r1), _serialize(r2))
 
+    def test_orientation_axis_restricts_to_multiples_of_90(self):
+        """--orientation axis must forbid wall-derived (slanted) angles."""
+        for k in (1, 2, 3, 4):
+            with self.subTest(example=k):
+                problem = model.load_problem(os.path.join(INPUT, "example%d.json" % k))
+                result = solver.solve(problem, solver.Config(time_limit=30, orientation="axis"))
+                self.assertTrue(result.feasible)
+                for pl in result.placements:
+                    a = pl.angle % 180.0
+                    dist_to_axis = min(a, 180.0 - a, abs(a - 90.0))
+                    self.assertLess(dist_to_axis, 0.5,
+                                    "axis mode produced %s deg for %s" % (pl.angle, pl.item.name))
+
 
 if __name__ == "__main__":
     unittest.main()
