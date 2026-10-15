@@ -72,7 +72,7 @@
 
 ### 1.7 复杂度与「是否可行」的表述边界
 
-- 几何判定为 O(边数 × 物体数)；搜索以 beam 为主（并行保留 40 条状态），单样例约 1~9 秒，四例合计约 13 秒（`example2` 会用 DFS 兜底多花几秒）。
+- 几何判定为 O(边数 × 物体数)；搜索以 beam 为主（并行保留 40 条状态），单样例约 1~14 秒，四例合计约 15~20 秒（随机器负载波动；`example2` 会用到 DFS 兜底，占掉大部分时间）。
 - **诚实性说明**：搜索到合法解 → `feasible=true`（构造性证明，且被独立校验器复核）；搜索不到 → `feasible=false` 且状态为「在给定预算内未找到」，并附诊断（面积/候选数/放宽约束后的结果），**不声称已证明不可行**。矩形装箱本身是 NP-hard，本实现是启发式而非精确求解器。
 
 ### 1.8 数据流与布局示意图（`Output/figures/*.layout.png`）
@@ -113,7 +113,7 @@ python solve/solve.py --batch Input/ -o Output/
 # 独立校验 Output/ 下的全部结果 JSON（按 exampleN.result.json ↔ exampleN.json 配对）
 python solve/validate.py Input Output
 
-# 单元测试（16 个：几何不变量 / 校验器负样例 / 端到端 + 确定性回归 / 出图像素级检查）
+# 单元测试（19 个：几何不变量与窄缝判据 / 校验器负样例 / 端到端 + 确定性回归 + 不可行输入 / 出图像素级检查）
 python -m unittest discover -s solve/tests -t .
 ```
 
