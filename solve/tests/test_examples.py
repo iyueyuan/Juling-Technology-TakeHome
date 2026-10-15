@@ -16,38 +16,39 @@ def _fridge_clearance(problem):
 
 
 class TestEndToEnd(unittest.TestCase):
-    def test_all_examples_feasible_and_valid_default(self):
-        """Default orientation is strict 0/90: every example must be feasible + valid."""
+    def test_all_examples_feasible_valid_and_wall_hugging(self):
+        """Default config: every example feasible, valid, and fully wall-hugging."""
         for k in (1, 2, 3, 4):
             with self.subTest(example=k):
-                problem, result, out = solve_cached(k, orientation="axis")
+                problem, result, out = solve_cached(k)
                 self.assertTrue(result.feasible, "example%d not feasible" % k)
                 vr = validator.validate(problem, out)
                 self.assertTrue(vr["passed"], "example%d failed: %s" % (k, vr["checks"]))
+                self.assertEqual(vr["metrics"]["itemsTouchingWall"], len(problem.items))
                 self.assertAlmostEqual(vr["metrics"]["fridgeClearanceMm"], _fridge_clearance(problem), places=6)
 
-    def test_auto_orientation_improves_wall_hugging(self):
-        """example1 has slanted walls: auto can hug them, strict 0/90 cannot."""
-        p_axis, _, out_axis = solve_cached(1, orientation="axis")
-        p_auto, _, out_auto = solve_cached(1, orientation="auto")
-        v_axis = validator.validate(p_axis, out_axis)["metrics"]["itemsTouchingWall"]
+    def test_axis_orientation_costs_wall_contact_on_slanted_room(self):
+        """example1 has slanted walls: strict 0/90 cannot hug them."""
+        p_auto, _, out_auto = solve_cached(1, orientation="auto", dfs_nodes=0)
+        p_axis, _, out_axis = solve_cached(1, orientation="axis", dfs_nodes=0)
         v_auto = validator.validate(p_auto, out_auto)["metrics"]["itemsTouchingWall"]
+        v_axis = validator.validate(p_axis, out_axis)["metrics"]["itemsTouchingWall"]
         self.assertGreater(v_auto, v_axis)
         self.assertEqual(v_auto, len(p_auto.items))
-        self.assertTrue(validator.validate(p_auto, out_auto)["passed"])
 
     def test_determinism(self):
         for k in (1, 4):
             with self.subTest(example=k):
-                problem, r1, out1 = solve_cached(k, orientation="axis")
-                r2 = solver.solve(problem, solver.Config(time_limit=30, orientation="axis", dfs_nodes=0))
+                problem, r1, out1 = solve_cached(k)
+                r2 = solver.solve(problem, solver.Config(time_limit=30,
+                                                         orientation="auto", dfs_nodes=15000))
                 self.assertEqual(out1, serialize(r2))
 
     def test_orientation_axis_restricts_to_multiples_of_90(self):
-        """Default (axis) mode must only produce 0/90 angles."""
+        """axis mode must only produce 0/90 angles."""
         for k in (1, 2, 3, 4):
             with self.subTest(example=k):
-                problem, result, out = solve_cached(k, orientation="axis")
+                problem, result, out = solve_cached(k, orientation="axis", dfs_nodes=0)
                 self.assertTrue(result.feasible)
                 for pl in result.placements:
                     a = pl.angle % 180.0

@@ -16,7 +16,7 @@ CONTACT_MEASURE_TOL = 1e-3  # mm, for measuring wall/item contact lengths
 
 @dataclass
 class Config:
-    orientation: str = "axis"                 # axis | auto
+    orientation: str = "auto"                 # auto (default) | axis
     fridge_clearance: Optional[float] = None  # None -> length/2
     min_wall_len: float = 500.0
     beam: int = 40
@@ -26,7 +26,7 @@ class Config:
     wall_step: float = 100.0
     max_pool: int = 500
     node_budget: int = 1500000
-    dfs_nodes: int = 0     # 0 = DFS only as a completeness fallback (>0 adds a quality pass)
+    dfs_nodes: int = 15000   # bounded, deterministic DFS quality pass (0 = disabled)
     time_limit: float = 25.0
     seed: int = 0
     _grid_enabled: bool = False
@@ -377,7 +377,7 @@ def _dfs(problem: Problem, order: List[Item], config: Config, deadline: float, n
         chosen = _dedup(chosen)
         scored = [(c, _placement_score(c, placed, room, door)) for c in chosen]
         scored.sort(key=lambda t: t[1], reverse=True)
-        for c, contrib in scored:
+        for c, contrib in scored[:config.branch]:
             rec(idx + 1, placed + [c], _add(score, contrib))
             if done[0] or time.time() > deadline:
                 return
@@ -438,6 +438,28 @@ def _beam(problem: Problem, order: List[Item], config: Config, deadline: float):
     return best if best[0] is not None else None
 
 
+def _repair_wall(problem: Problem, placements: List[Placement], order: List[Item],
+                 config: Config) -> List[Placement]:
+    """Deterministic one-item-at-a-time pass: move non-wall items onto a wall."""
+    room, door = problem.room, problem.door
+    pls = list(placements)
+    for i, pl in enumerate(pls):
+        if pl.wall_mm > geom.CONTACT_TOL:
+            continue
+        others = pls[:i] + pls[i + 1:]
+        best = None
+        best_key = None
+        for c in _wall_candidates(pl.item, room, door, config):
+            if c.wall_mm <= geom.CONTACT_TOL or _collides(c, others, config):
+                continue
+            key = _placement_score(c, others, room, door)
+            if best_key is None or key > best_key:
+                best, best_key = c, key
+        if best is not None:
+            pls[i] = best
+    return pls
+
+
 def _try_strategies(problem: Problem, config: Config, deadline: float):
     labels = ["fridge-first", "area-desc", "area-asc"]
     orders = _item_orders(problem.items)
@@ -449,8 +471,20 @@ def _try_strategies(problem: Problem, config: Config, deadline: float):
         r = _beam(problem, order, config, deadline)
         if r is not None and (best is None or r[1] > best[1]):
             best = (r[0], r[1], label + "/beam")
+        if best is not None and best[1][0] >= len(problem.items):
+            break  # every item already touches a wall -> cannot improve further
     if best is not None and best[1][0] >= len(problem.items):
         return best  # every item already touches a wall -> nothing left to optimise
+    # 1b) deterministic repair: try to move each off-wall item onto a wall
+    if best is not None:
+        repaired = _repair_wall(problem, best[0], orders[0], config)
+        score: Tuple[float, ...] = ()
+        for i, pl in enumerate(repaired):
+            score = _add(score, _placement_score(pl, repaired[:i], problem.room, problem.door))
+        if score > best[1]:
+            best = (repaired, score, best[2] + "+repair")
+    if best is not None and best[1][0] >= len(problem.items):
+        return best
     # 2) DFS: completeness fallback when the beam could not place everything; with
     #    --dfs-nodes > 0 it also acts as an optional (slower) quality pass.
     if best is None:

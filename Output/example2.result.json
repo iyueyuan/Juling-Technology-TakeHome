@@ -21,7 +21,7 @@
       "type": "shelf",
       "center": [
         31396.389,
-        33875.632
+        32540.03
       ],
       "rotation": 90.0,
       "length": 1000.0,
@@ -31,7 +31,7 @@
       "name": "shelf-2",
       "type": "shelf",
       "center": [
-        31096.389,
+        29493.389,
         34770.029
       ],
       "rotation": 0.0,
@@ -42,7 +42,7 @@
       "name": "shelf-3",
       "type": "shelf",
       "center": [
-        30096.389,
+        31096.389,
         34770.029
       ],
       "rotation": 0.0,
@@ -53,8 +53,8 @@
       "name": "shelf-4",
       "type": "shelf",
       "center": [
-        31396.389,
-        32640.03
+        30796.389,
+        32500.03
       ],
       "rotation": 90.0,
       "length": 1000.0,
@@ -64,10 +64,10 @@
       "name": "overShelf-1",
       "type": "overShelf",
       "center": [
-        29293.389,
-        34770.029
+        31396.389,
+        33675.632
       ],
-      "rotation": 0.0,
+      "rotation": 90.0,
       "length": 600.0,
       "width": 400.0
     },
@@ -75,10 +75,10 @@
       "name": "overShelf-2",
       "type": "overShelf",
       "center": [
-        29293.389,
-        34270.029
+        30296.389,
+        34770.029
       ],
-      "rotation": 90.0,
+      "rotation": 0.0,
       "length": 600.0,
       "width": 400.0
     },
@@ -86,10 +86,10 @@
       "name": "overShelf-3",
       "type": "overShelf",
       "center": [
-        30693.389,
-        32300.03
+        31296.389,
+        34175.632
       ],
-      "rotation": 90.0,
+      "rotation": 0.0,
       "length": 600.0,
       "width": 400.0
     }

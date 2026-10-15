@@ -6,37 +6,15 @@
   "angleConvention": "deg; 0 deg = length along +x, width along +y; counter-clockwise positive",
   "placements": [
     {
-      "name": "overShelf-1",
-      "type": "overShelf",
+      "name": "fridge",
+      "type": "fridge",
       "center": [
-        183073.592,
-        29842.723
+        183483.592,
+        32437.723
       ],
-      "rotation": 90.0,
-      "length": 600.0,
-      "width": 400.0
-    },
-    {
-      "name": "overShelf-2",
-      "type": "overShelf",
-      "center": [
-        184173.592,
-        30242.723
-      ],
-      "rotation": 90.0,
-      "length": 600.0,
-      "width": 400.0
-    },
-    {
-      "name": "overShelf-3",
-      "type": "overShelf",
-      "center": [
-        184573.592,
-        30942.723
-      ],
-      "rotation": 90.0,
-      "length": 600.0,
-      "width": 400.0
+      "rotation": 0.0,
+      "length": 1220.0,
+      "width": 1330.0
     },
     {
       "name": "shelf-1",
@@ -61,15 +39,37 @@
       "width": 400.0
     },
     {
-      "name": "fridge",
-      "type": "fridge",
+      "name": "overShelf-1",
+      "type": "overShelf",
       "center": [
-        183483.592,
-        32437.723
+        184173.592,
+        30242.723
       ],
-      "rotation": 0.0,
-      "length": 1220.0,
-      "width": 1330.0
+      "rotation": 90.0,
+      "length": 600.0,
+      "width": 400.0
+    },
+    {
+      "name": "overShelf-2",
+      "type": "overShelf",
+      "center": [
+        183073.592,
+        29842.723
+      ],
+      "rotation": 90.0,
+      "length": 600.0,
+      "width": 400.0
+    },
+    {
+      "name": "overShelf-3",
+      "type": "overShelf",
+      "center": [
+        184573.592,
+        30942.723
+      ],
+      "rotation": 90.0,
+      "length": 600.0,
+      "width": 400.0
     }
   ]
 }

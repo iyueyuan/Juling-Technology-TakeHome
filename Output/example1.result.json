@@ -9,10 +9,10 @@
       "name": "fridge",
       "type": "fridge",
       "center": [
-        6456.736,
-        30660.29
+        5191.891,
+        31931.017
       ],
-      "rotation": 90.0,
+      "rotation": 15.852,
       "length": 1220.0,
       "width": 1330.0
     },
@@ -20,10 +20,10 @@
       "name": "iceMaker",
       "type": "iceMaker",
       "center": [
-        6741.736,
-        29625.29
+        5611.86,
+        29774.73
       ],
-      "rotation": 0.0,
+      "rotation": 105.852,
       "length": 760.0,
       "width": 850.0
     },
@@ -31,10 +31,10 @@
       "name": "shelf-1",
       "type": "shelf",
       "center": [
-        6621.736,
-        28942.381
+        6321.824,
+        28942.148
       ],
-      "rotation": 0.0,
+      "rotation": 179.9746,
       "length": 1000.0,
       "width": 400.0
     },
@@ -42,10 +42,10 @@
       "name": "shelf-2",
       "type": "shelf",
       "center": [
-        6621.736,
-        31470.29
+        6921.736,
+        31246.49
       ],
-      "rotation": 0.0,
+      "rotation": 90.0,
       "length": 1000.0,
       "width": 400.0
     },
@@ -53,10 +53,10 @@
       "name": "shelf-3",
       "type": "shelf",
       "center": [
-        5621.736,
-        31470.29
+        6921.736,
+        30246.49
       ],
-      "rotation": 0.0,
+      "rotation": 90.0,
       "length": 1000.0,
       "width": 400.0
     },
@@ -64,10 +64,10 @@
       "name": "overShelf-1",
       "type": "overShelf",
       "center": [
-        5421.736,
-        31870.29
+        6921.736,
+        29446.49
       ],
-      "rotation": 0.0,
+      "rotation": 90.0,
       "length": 600.0,
       "width": 400.0
     },
@@ -75,10 +75,10 @@
       "name": "overShelf-2",
       "type": "overShelf",
       "center": [
-        6021.736,
-        31870.29
+        6017.226,
+        32648.755
       ],
-      "rotation": 0.0,
+      "rotation": 15.852,
       "length": 600.0,
       "width": 400.0
     },
@@ -86,10 +86,10 @@
       "name": "overShelf-3",
       "type": "overShelf",
       "center": [
-        6621.736,
-        31870.29
+        6594.408,
+        32812.647
       ],
-      "rotation": 0.0,
+      "rotation": 15.852,
       "length": 600.0,
       "width": 400.0
     }

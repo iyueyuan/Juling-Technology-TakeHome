@@ -32,7 +32,7 @@ def serialize(result):
     }
 
 
-def solve_cached(k, orientation="axis", dfs_nodes=0, time_limit=30.0):
+def solve_cached(k, orientation="auto", dfs_nodes=15000, time_limit=30.0):
     """Solve example k once per (orientation, dfs_nodes) and cache the outcome."""
     key = (k, orientation, dfs_nodes)
     if key not in _CACHE:

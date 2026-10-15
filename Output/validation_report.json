@@ -55,8 +55,8 @@
         }
       ],
       "metrics": {
-        "itemsTouchingWall": 4,
-        "wallContactMm": 2870.0,
+        "itemsTouchingWall": 8,
+        "wallContactMm": 8430.0,
         "freeAreaMm2": 4624511.97,
         "fridgeClearanceMm": 610.0
       },
@@ -120,8 +120,8 @@
         }
       ],
       "metrics": {
-        "itemsTouchingWall": 7,
-        "wallContactMm": 8380.0,
+        "itemsTouchingWall": 8,
+        "wallContactMm": 8820.0,
         "freeAreaMm2": 3761310.0,
         "fridgeClearanceMm": 610.0
       },

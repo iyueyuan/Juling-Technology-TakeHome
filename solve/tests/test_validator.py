@@ -15,7 +15,7 @@ INPUT = os.path.join(ROOT, "Input")
 
 def _solve(k):
     """Cached solve (deep-copied so tests may mutate the result freely)."""
-    problem, _result, out = solve_cached(k, orientation="axis")
+    problem, _result, out = solve_cached(k, orientation="auto", dfs_nodes=0)
     return problem, copy.deepcopy(out)
 
 
