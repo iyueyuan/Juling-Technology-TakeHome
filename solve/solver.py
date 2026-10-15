@@ -535,7 +535,7 @@ def solve(problem: Problem, config: Optional[Config] = None) -> Result:
             break
         order = items[:]
         rng.shuffle(order)
-        r = _dfs(problem, order, cfg, deadline)
+        r = _dfs(problem, order, cfg, deadline, config.node_budget)
         if r is not None:
             return Result(True, r[0], None, "literal-0+grid", True, "shuffle",
                           time.time() - t0, _stats(r[0], problem))
