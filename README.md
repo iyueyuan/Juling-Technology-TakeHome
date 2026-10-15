@@ -199,19 +199,93 @@ python -m unittest discover -s solve/tests -t .
 | overShelf-2 | 离地架 | (183073.592, 29842.723) | 90.000° |
 | overShelf-3 | 离地架 | (184573.592, 30942.723) | 90.000° |
 
-### example1 的真实结果 JSON 片段
+### 四个样例的完整输出（`Output/exampleN.result.json`）
+
+以下是四个样例**完整的输出 JSON**（为了便于阅读，每个物体压成一行；字段与数值和 `Output/*.result.json` 完全一致）。四例均为 `feasible = true`、独立校验 V1–V8 全 PASS。
+
+**example1（斜墙房间，外开门，8 件）**
 
 ```json
 {
   "feasible": true,
+  "reason": null,
   "unit": "mm",
   "clearanceMode": "fridge-610mm",
   "angleConvention": "deg; 0 deg = length along +x, width along +y; counter-clockwise positive",
   "placements": [
-    {"name": "fridge", "type": "fridge", "center": [5191.891, 31931.017],
-     "rotation": 15.852, "length": 1220.0, "width": 1330.0},
-    {"name": "shelf-1", "type": "shelf", "center": [6321.824, 28942.148],
-     "rotation": 179.9746, "length": 1000.0, "width": 400.0}
+    {"name": "fridge", "type": "fridge", "center": [5191.891, 31931.017], "rotation": 15.852, "length": 1220.0, "width": 1330.0},
+    {"name": "iceMaker", "type": "iceMaker", "center": [5611.86, 29774.73], "rotation": 105.852, "length": 760.0, "width": 850.0},
+    {"name": "shelf-1", "type": "shelf", "center": [6321.824, 28942.148], "rotation": 179.9746, "length": 1000.0, "width": 400.0},
+    {"name": "shelf-2", "type": "shelf", "center": [6921.736, 31246.49], "rotation": 90.0, "length": 1000.0, "width": 400.0},
+    {"name": "shelf-3", "type": "shelf", "center": [6921.736, 30246.49], "rotation": 90.0, "length": 1000.0, "width": 400.0},
+    {"name": "overShelf-1", "type": "overShelf", "center": [6921.736, 29446.49], "rotation": 90.0, "length": 600.0, "width": 400.0},
+    {"name": "overShelf-2", "type": "overShelf", "center": [6017.226, 32648.755], "rotation": 15.852, "length": 600.0, "width": 400.0},
+    {"name": "overShelf-3", "type": "overShelf", "center": [6594.408, 32812.647], "rotation": 15.852, "length": 600.0, "width": 400.0}
+  ]
+}
+```
+
+**example2（外开门，8 件）**
+
+```json
+{
+  "feasible": true,
+  "reason": null,
+  "unit": "mm",
+  "clearanceMode": "fridge-610mm",
+  "angleConvention": "deg; 0 deg = length along +x, width along +y; counter-clockwise positive",
+  "placements": [
+    {"name": "fridge", "type": "fridge", "center": [29603.389, 32665.03], "rotation": 0.0, "length": 1220.0, "width": 1330.0},
+    {"name": "shelf-1", "type": "shelf", "center": [31396.389, 32540.03], "rotation": 90.0, "length": 1000.0, "width": 400.0},
+    {"name": "shelf-2", "type": "shelf", "center": [29493.389, 34770.029], "rotation": 0.0, "length": 1000.0, "width": 400.0},
+    {"name": "shelf-3", "type": "shelf", "center": [31096.389, 34770.029], "rotation": 0.0, "length": 1000.0, "width": 400.0},
+    {"name": "shelf-4", "type": "shelf", "center": [30796.389, 32500.03], "rotation": 90.0, "length": 1000.0, "width": 400.0},
+    {"name": "overShelf-1", "type": "overShelf", "center": [31396.389, 33675.632], "rotation": 90.0, "length": 600.0, "width": 400.0},
+    {"name": "overShelf-2", "type": "overShelf", "center": [30296.389, 34770.029], "rotation": 0.0, "length": 600.0, "width": 400.0},
+    {"name": "overShelf-3", "type": "overShelf", "center": [31296.389, 34175.632], "rotation": 0.0, "length": 600.0, "width": 400.0}
+  ]
+}
+```
+
+**example3（内开门，N×N=700×700 禁区，9 件）**
+
+```json
+{
+  "feasible": true,
+  "reason": null,
+  "unit": "mm",
+  "clearanceMode": "fridge-610mm",
+  "angleConvention": "deg; 0 deg = length along +x, width along +y; counter-clockwise positive",
+  "placements": [
+    {"name": "fridge", "type": "fridge", "center": [56563.31, 36063.106], "rotation": 90.0, "length": 1220.0, "width": 1330.0},
+    {"name": "shelf-1", "type": "shelf", "center": [56098.31, 29983.107], "rotation": 90.0, "length": 1000.0, "width": 400.0},
+    {"name": "shelf-2", "type": "shelf", "center": [57548.31, 37353.106], "rotation": 0.0, "length": 1000.0, "width": 400.0},
+    {"name": "shelf-3", "type": "shelf", "center": [56098.31, 32483.107], "rotation": 90.0, "length": 1000.0, "width": 400.0},
+    {"name": "shelf-4", "type": "shelf", "center": [56098.31, 33483.107], "rotation": 90.0, "length": 1000.0, "width": 400.0},
+    {"name": "shelf-5", "type": "shelf", "center": [56098.31, 34483.107], "rotation": 90.0, "length": 1000.0, "width": 400.0},
+    {"name": "overShelf-1", "type": "overShelf", "center": [56098.31, 30783.107], "rotation": 90.0, "length": 600.0, "width": 400.0},
+    {"name": "overShelf-2", "type": "overShelf", "center": [56098.31, 31383.107], "rotation": 90.0, "length": 600.0, "width": 400.0},
+    {"name": "overShelf-3", "type": "overShelf", "center": [56898.31, 29953.106], "rotation": 90.0, "length": 600.0, "width": 400.0}
+  ]
+}
+```
+
+**example4（退化输入 + 外开门，6 件）**
+
+```json
+{
+  "feasible": true,
+  "reason": null,
+  "unit": "mm",
+  "clearanceMode": "fridge-610mm",
+  "angleConvention": "deg; 0 deg = length along +x, width along +y; counter-clockwise positive",
+  "placements": [
+    {"name": "fridge", "type": "fridge", "center": [183483.592, 32437.723], "rotation": 0.0, "length": 1220.0, "width": 1330.0},
+    {"name": "shelf-1", "type": "shelf", "center": [184573.592, 30142.723], "rotation": 90.0, "length": 1000.0, "width": 400.0},
+    {"name": "shelf-2", "type": "shelf", "center": [183873.592, 29742.723], "rotation": 0.0, "length": 1000.0, "width": 400.0},
+    {"name": "overShelf-1", "type": "overShelf", "center": [184173.592, 30242.723], "rotation": 90.0, "length": 600.0, "width": 400.0},
+    {"name": "overShelf-2", "type": "overShelf", "center": [183073.592, 29842.723], "rotation": 90.0, "length": 600.0, "width": 400.0},
+    {"name": "overShelf-3", "type": "overShelf", "center": [184573.592, 30942.723], "rotation": 90.0, "length": 600.0, "width": 400.0}
   ]
 }
 ```
@@ -238,9 +312,8 @@ python -m unittest discover -s solve/tests -t .
 - **参考实现调研**：对比 4 个公开仓库对「门 / 冰箱净空」的不同处理，并指出它们各自的实现缺陷（碰撞阈值过松导致真实重叠、冰箱净空带未登记为障碍或是死代码、冰箱开门边取反、内开门只留 N/2 而非 N×N）。
 - **验证与文档**：独立校验器 V1–V8、单元测试（含负样例与确定性回归）、交叉校验（用本方案的校验器去裁判上述 4 个仓库的输出）、布局出图、结果汇总。
 ### 3. 哪些关键逻辑是我自己理解并调整的
-- **净空口径（最关键的一处）**：题目只写了「开门边不能放任何东西」，并没有给净空深度。是我提出「净空应该和冰箱门的宽度有关」，据此确定 **冰箱开门边净空 = 冰箱门宽 = `length/2` = 610 mm**（本题为四门冰箱，单扇门宽 1220/2），把方案从 AI 自造的 800 / 1220 等数值纠正回题目口径；同时确定 **内开门按题目 N×N、外开门用「不得与门洞正长度重合」的零深度判据**，不自造余量。
-- **旋转（摆放角度）口径**：以题目原文「物体可以旋转，但需与轮廓边平行或垂直摆放」为准，并明确这里的"平行/垂直"是相对**墙体轮廓边**而言 —— 因此默认允许与**任意**轮廓边（包括 `example1` 那堵 15.852° 的斜墙）平行或垂直地摆放。这一处我自己判断并纠正过：一度把默认改成只允许 0°/90°，随即意识到那样对斜墙既不平行也不垂直（该例贴墙会从 8/8 掉到 4/8），于是回退；同时保留 `--orientation axis` 作为「只允许 0°/90°」的可选口径。
+- **净空口径**：题目只写了开门边不能放任何东西，并没有给净空深度。是我提出净空应该和冰箱门的宽度有关，据此确定 **冰箱开门边净空 = 冰箱门宽 = `length/2` = 610 mm**（本题为四门冰箱，单扇门宽 1220/2），把方案从 AI 自造的 800 / 1220 等数值纠正回题目口径；同时确定 **内开门按题目 N×N、外开门用不得与门洞正长度重合的零深度判据**，不自造余量。
+- **旋转（摆放角度）口径**：以题目原文物体可以旋转，但需与轮廓边平行或垂直摆放为准，并明确这里的"平行/垂直"是相对**墙体轮廓边**而言 —— 因此默认允许与**任意**轮廓边（包括 `example1` 那堵 15.852° 的斜墙）平行或垂直地摆放。这一处我自己判断并纠正过：一度把默认改成只允许 0°/90°，随即意识到那样对斜墙既不平行也不垂直（该例贴墙会从 8/8 掉到 4/8），于是回退；同时保留 `--orientation axis` 作为只允许 0°/90°的可选口径。
 - **GitHub 上的仓库 / 用参考实现校准净空**：我自己在 GitHub 上找同类项目、把 URL 交给 AI，让它总结这些项目的「门 / 冰箱净空」是怎么定义的，用来反推题目口径（结论是各家自造数值不一，最终仍以题面为准）。
-- **交付结构**：`Input/`（除 `题目要求.txt` 外全部拷贝）、`Output/`（生成的 JSON 放这里、并在这一层被校验）、代码统一放 `solve/`、README 放最外层；README 章节顺序为「核心逻辑 → 运行环境 → 输出示例」在前、AI 使用说明在后；生成的 JSON 只呈现结果，**不在 README 里写字段格式说明**。
-- **要求独立验证**：我要求确认「4 个用例是否都通过」，并追问「有没有做回归验证」，据此做了**确定性回归**（同种子重复求解结果逐字节一致）以及**用本方案的校验器去交叉校验那 4 个仓库的输出**（结果：1/2/3 号仓库的输出被我方校验器判为不合格，4 号有一例内开门净空留少了）。
-- **对图纸直觉的追问，反过来改进了实现**：我质疑过「斜向摆放到底允不允许」「图上为什么有矩形凸出轮廓」「这些图是不是照着输入图片画的」。这几问暴露并修掉了两个真问题——`--orientation axis` 开关实际失效、示意图把冰箱**非生效侧**的净空带也画了出来——以及一处会误导的呈现方式（门上粗线溢出轮廓、中文图例渲染成方块）。
+- **要求独立验证**：我要求确认4 个用例是否都通过，并追问有没有做回归验证，据此做了**确定性回归**（同种子重复求解结果逐字节一致）以及**用本方案的校验器去交叉校验那 4 个仓库的输出**（结果：1/2/3 号仓库的输出被我方校验器判为不合格，4 号有一例内开门净空留少了）。
+
