@@ -14,7 +14,6 @@ TYPE_COLORS = {
     "overShelf": ("#F4E5C4", "#9F7F2F"),
     "unknown": ("#E8E8E8", "#666666"),
 }
-TYPE_LABEL = {"fridge": "冰箱", "iceMaker": "制冰机", "shelf": "货架", "overShelf": "离地架", "unknown": "未知"}
 
 
 def _hex(h: str) -> tuple:
@@ -105,9 +104,7 @@ def render_layout(problem: Problem, placements: List[Dict], out_png: str, max_di
         txt = "%s\n%sx%s" % (p.get("name"), int(float(p["length"])), int(float(p["width"])))
         d.text((cx - 20, cy - 12), txt, fill="#111111")
 
-    # legend
-    ly = H - 96
-    d.text((10, ly), "房间轮廓 | 门/内开区 | 物品(冰箱=蓝/制冰机=紫/货架=绿/离地架=黄) | 橙=冰箱开门净空(生效侧，画在房间内的那条)", fill="#333333")
-
+    # NOTE: PIL's default bitmap font only covers ASCII, so no CJK text is drawn
+    # here (Chinese would render as empty boxes). Item labels above are ASCII.
     img.save(out_png)
     print("rendered", out_png)
