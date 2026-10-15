@@ -66,4 +66,4 @@
 | V6 | PASS | fridge front 610mm clear |
 | V7 | PASS | flushing contact is permitted and is not counted as overlap (V3) |
 
-指标: 贴墙 6 件, 贴墙总长 8950.0 mm, 自由面积 3.43 m², 冰箱净空 610.0 mm
+指标: 贴墙 6 件, 贴墙总长 7650.0 mm, 自由面积 3.43 m², 冰箱净空 610.0 mm

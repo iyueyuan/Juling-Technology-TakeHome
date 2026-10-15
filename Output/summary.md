@@ -5,4 +5,4 @@
 | example1.json | 是 | fridge-610mm | PASS | 8/8 | 8/8 | 8430.0 | 610.0 |
 | example2.json | 是 | fridge-610mm | PASS | 8/8 | 8/8 | 8820.0 | 610.0 |
 | example3.json | 是 | fridge-610mm | PASS | 9/9 | 9/9 | 8950.0 | 610.0 |
-| example4.json | 是 | fridge-610mm | PASS | 6/6 | 6/6 | 8950.0 | 610.0 |
+| example4.json | 是 | fridge-610mm | PASS | 6/6 | 6/6 | 7650.0 | 610.0 |

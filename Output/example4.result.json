@@ -21,7 +21,7 @@
       "type": "shelf",
       "center": [
         184573.592,
-        30142.723
+        31142.723
       ],
       "rotation": 90.0,
       "length": 1000.0,
@@ -31,10 +31,10 @@
       "name": "shelf-2",
       "type": "shelf",
       "center": [
-        183873.592,
-        29742.723
+        184173.592,
+        30042.723
       ],
-      "rotation": 0.0,
+      "rotation": 90.0,
       "length": 1000.0,
       "width": 400.0
     },
@@ -42,10 +42,10 @@
       "name": "overShelf-1",
       "type": "overShelf",
       "center": [
-        184173.592,
-        30242.723
+        183673.592,
+        29742.723
       ],
-      "rotation": 90.0,
+      "rotation": 0.0,
       "length": 600.0,
       "width": 400.0
     },
@@ -64,8 +64,8 @@
       "name": "overShelf-3",
       "type": "overShelf",
       "center": [
-        184573.592,
-        30942.723
+        183073.592,
+        30442.723
       ],
       "rotation": 90.0,
       "length": 600.0,

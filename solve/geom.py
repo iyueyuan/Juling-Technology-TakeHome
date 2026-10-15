@@ -292,6 +292,54 @@ def segments_properly_intersect(a: Point, b: Point, c: Point, d: Point, tol: flo
            ((o3 > tol and o4 < -tol) or (o3 < -tol and o4 > tol))
 
 
+def _seg_enters_rect(a: Point, b: Point, corners: Poly, tol: float = 1e-6) -> bool:
+    """True if segment (a,b) has a positive-length part strictly inside the rectangle.
+
+    Needed because a polygon edge may run through the rectangle's interior without
+    *properly* crossing any of its edges (e.g. a zero-width slit whose wall is
+    collinear with one side): then part of the rectangle lies outside the polygon
+    even though every corner/edge-midpoint test passes.
+    """
+    a0 = corners[0]
+    e1 = sub(corners[1], corners[0])
+    e2 = sub(corners[3], corners[0])
+    L = math.hypot(e1[0], e1[1])
+    W = math.hypot(e2[0], e2[1])
+    if L <= 0.0 or W <= 0.0:
+        return False
+    ux, uy = e1[0] / L, e1[1] / L
+    vx, vy = e2[0] / W, e2[1] / W
+
+    def loc(p):
+        dx, dy = p[0] - a0[0], p[1] - a0[1]
+        return (dx * ux + dy * uy, dx * vx + dy * vy)
+
+    u0, v0 = loc(a)
+    u1, v1 = loc(b)
+    t0, t1 = 0.0, 1.0
+    for d0, d1, lo, hi in ((u0, u1, 0.0, L), (v0, v1, 0.0, W)):
+        dd = d1 - d0
+        if abs(dd) < 1e-12:
+            if d0 < lo - tol or d0 > hi + tol:
+                return False          # parallel to this axis and outside the slab
+            continue
+        ta, tb = (lo - d0) / dd, (hi - d0) / dd
+        if ta > tb:
+            ta, tb = tb, ta
+        t0 = max(t0, ta)
+        t1 = min(t1, tb)
+    if t1 - t0 <= 1e-9:
+        return False                  # no positive-length overlap with the rectangle
+    eps = max(tol, 1e-9)
+    for f in (0.0, 0.25, 0.5, 0.75, 1.0):
+        t = t0 + f * (t1 - t0)
+        um = u0 + t * (u1 - u0)
+        vm = v0 + t * (v1 - v0)
+        if eps < um < L - eps and eps < vm < W - eps:
+            return True               # a point strictly inside -> rectangle is cut
+    return False
+
+
 def rect_inside_polygon(corners: Poly, poly: Sequence[Point], tol: float = ON_BOUNDARY_TOL) -> bool:
     """True if the rectangle lies entirely inside-or-on ``poly`` (tol in mm)."""
     for c in corners:
@@ -304,6 +352,10 @@ def rect_inside_polygon(corners: Poly, poly: Sequence[Point], tol: float = ON_BO
                 return False
         # safety: edge midpoint must also be inside/on
         if not point_in_polygon(((a[0] + b[0]) / 2, (a[1] + b[1]) / 2), poly, tol):
+            return False
+    # a polygon edge must not cut through the rectangle's interior
+    for i in range(n):
+        if _seg_enters_rect(poly[i], poly[(i + 1) % n], corners, max(tol, 1e-9)):
             return False
     return True
 

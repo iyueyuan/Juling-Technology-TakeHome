@@ -56,6 +56,32 @@ class TestGeom(unittest.TestCase):
         poke = [(-1.0, 0.0), (10.0, 0.0), (10.0, 10.0), (-1.0, 10.0)]
         self.assertFalse(geom.rect_inside_polygon(poke, poly, 1e-6))
 
+    def test_rect_inside_polygon_rejects_slit_crossing(self):
+        """Regression: a 100mm slit (like example4's) must reject a rect straddling it.
+
+        Every corner/edge-midpoint of this rectangle lies on or inside the polygon,
+        and no edge properly crosses, so only the "polygon edge cuts the rectangle
+        interior" check can catch it.
+        """
+        poly = [(0.0, 0.0), (200.0, 0.0), (200.0, 100.0),
+                (150.0, 100.0), (150.0, 200.0), (100.0, 200.0),
+                (100.0, 100.0), (0.0, 100.0)]          # 50mm-wide slit from (100,100) to (150,100)
+        # left edge collinear with the slit wall (x=100), straddles the slit
+        straddle = [(100.0, 100.0), (300.0, 100.0), (300.0, 300.0), (100.0, 300.0)]
+        self.assertFalse(geom.rect_inside_polygon(straddle, poly, 1e-6))
+        # fully inside the left lobe is fine
+        inside = [(10.0, 10.0), (90.0, 10.0), (90.0, 90.0), (10.0, 90.0)]
+        self.assertTrue(geom.rect_inside_polygon(inside, poly, 1e-6))
+        # flush against the slit wall but NOT crossing it is fine
+        flush = [(50.0, 10.0), (100.0, 10.0), (100.0, 90.0), (50.0, 90.0)]
+        self.assertTrue(geom.rect_inside_polygon(flush, poly, 1e-6))
+
+    def test_example4_slit_straddling_placement_is_rejected(self):
+        """The exact placement that used to slip through in example4 (shelf-1)."""
+        p = model.load_problem(os.path.join(INPUT, "example4.json"))
+        cs = geom.rect_corners((184573.592, 30142.723), 1000.0, 400.0, 90.0)
+        self.assertFalse(geom.rect_inside_polygon(cs, p.room.poly, 1e-2))
+
     def test_wall_contact(self):
         poly = [(0.0, 0.0), (100.0, 0.0), (100.0, 100.0), (0.0, 100.0)]
         # touches only the bottom wall (length 40)

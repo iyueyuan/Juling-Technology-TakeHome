@@ -251,7 +251,7 @@
       ],
       "metrics": {
         "itemsTouchingWall": 6,
-        "wallContactMm": 8950.0,
+        "wallContactMm": 7650.0,
         "freeAreaMm2": 3430352.24,
         "fridgeClearanceMm": 610.0
       },
