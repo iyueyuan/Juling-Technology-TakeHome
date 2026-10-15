@@ -1,0 +1,108 @@
+{
+  "feasible": true,
+  "reason": null,
+  "unit": "mm",
+  "clearanceMode": "fridge-610mm",
+  "angleConvention": "deg; 0 deg = length along +x, width along +y; counter-clockwise positive",
+  "placements": [
+    {
+      "name": "overShelf-1",
+      "type": "overShelf",
+      "center": [
+        56098.31,
+        29783.107
+      ],
+      "rotation": 270.0,
+      "length": 600.0,
+      "width": 400.0
+    },
+    {
+      "name": "overShelf-2",
+      "type": "overShelf",
+      "center": [
+        56898.31,
+        29783.107
+      ],
+      "rotation": 270.0,
+      "length": 600.0,
+      "width": 400.0
+    },
+    {
+      "name": "overShelf-3",
+      "type": "overShelf",
+      "center": [
+        57848.31,
+        37253.106
+      ],
+      "rotation": 270.0,
+      "length": 600.0,
+      "width": 400.0
+    },
+    {
+      "name": "shelf-1",
+      "type": "shelf",
+      "center": [
+        56098.31,
+        31583.107
+      ],
+      "rotation": 90.0,
+      "length": 1000.0,
+      "width": 400.0
+    },
+    {
+      "name": "shelf-2",
+      "type": "shelf",
+      "center": [
+        56098.31,
+        32583.107
+      ],
+      "rotation": 270.0,
+      "length": 1000.0,
+      "width": 400.0
+    },
+    {
+      "name": "shelf-3",
+      "type": "shelf",
+      "center": [
+        56098.31,
+        33583.107
+      ],
+      "rotation": 270.0,
+      "length": 1000.0,
+      "width": 400.0
+    },
+    {
+      "name": "shelf-4",
+      "type": "shelf",
+      "center": [
+        56098.31,
+        30583.107
+      ],
+      "rotation": 90.0,
+      "length": 1000.0,
+      "width": 400.0
+    },
+    {
+      "name": "shelf-5",
+      "type": "shelf",
+      "center": [
+        56098.31,
+        34953.106
+      ],
+      "rotation": 90.0,
+      "length": 1000.0,
+      "width": 400.0
+    },
+    {
+      "name": "fridge",
+      "type": "fridge",
+      "center": [
+        56563.31,
+        36063.106
+      ],
+      "rotation": 90.0,
+      "length": 1220.0,
+      "width": 1330.0
+    }
+  ]
+}

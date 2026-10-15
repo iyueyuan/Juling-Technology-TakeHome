@@ -1,0 +1,262 @@
+{
+  "example1": {
+    "input": "example1.json",
+    "result": "example1.result.json",
+    "validation": {
+      "passed": true,
+      "checks": [
+        {
+          "id": "V1",
+          "rule": "轮廓有效性(退化顶点清理后为简单多边形且面积>0)",
+          "status": "PASS",
+          "detail": "cleaned 7->6 vertices; area=8813111.97 mm^2; removed 1 duplicate point(s)"
+        },
+        {
+          "id": "V8",
+          "rule": "完整性(名称/尺寸一一对应、坐标有限)",
+          "status": "PASS",
+          "detail": "8/8 items present"
+        },
+        {
+          "id": "V2",
+          "rule": "全部物体在轮廓内(容差 1.0e-02 mm)",
+          "status": "PASS",
+          "detail": "all inside"
+        },
+        {
+          "id": "V3",
+          "rule": "两两不重叠(交叠面积 ≤ 1.0e+00 mm^2，允许贴合)",
+          "status": "PASS",
+          "detail": "no overlaps"
+        },
+        {
+          "id": "V4",
+          "rule": "旋转角与某条轮廓边平行/垂直(容差 0.5°)",
+          "status": "PASS",
+          "detail": "all aligned"
+        },
+        {
+          "id": "V5",
+          "rule": "门未被遮挡(内开 N×N 无物体；外开不压门洞)",
+          "status": "PASS",
+          "detail": "door clear"
+        },
+        {
+          "id": "V6",
+          "rule": "冰箱开门边(面宽=length)前方净空 610mm 在房间内且无任何物体",
+          "status": "PASS",
+          "detail": "fridge front 610mm clear"
+        },
+        {
+          "id": "V7",
+          "rule": "货架/离地架四边可贴放物品(无净空要求)",
+          "status": "PASS",
+          "detail": "flushing contact is permitted and is not counted as overlap (V3)"
+        }
+      ],
+      "metrics": {
+        "itemsTouchingWall": 8,
+        "wallContactMm": 7390.0,
+        "freeAreaMm2": 4624511.97,
+        "fridgeClearanceMm": 610.0
+      },
+      "feasibleFlag": true,
+      "feasibleFlagConsistent": true
+    }
+  },
+  "example2": {
+    "input": "example2.json",
+    "result": "example2.result.json",
+    "validation": {
+      "passed": true,
+      "checks": [
+        {
+          "id": "V1",
+          "rule": "轮廓有效性(退化顶点清理后为简单多边形且面积>0)",
+          "status": "PASS",
+          "detail": "cleaned 15->10 vertices; area=7703910.00 mm^2; removed 1 duplicate point(s); merged collinear point at (31196.3885, 34970.0295); merged collinear point at (28993.3885, 34205.0295); merged collinear point at (28993.3885, 33505.0295); merged collinear point at (28993.3885, 32755.0295)"
+        },
+        {
+          "id": "V8",
+          "rule": "完整性(名称/尺寸一一对应、坐标有限)",
+          "status": "PASS",
+          "detail": "8/8 items present"
+        },
+        {
+          "id": "V2",
+          "rule": "全部物体在轮廓内(容差 1.0e-02 mm)",
+          "status": "PASS",
+          "detail": "all inside"
+        },
+        {
+          "id": "V3",
+          "rule": "两两不重叠(交叠面积 ≤ 1.0e+00 mm^2，允许贴合)",
+          "status": "PASS",
+          "detail": "no overlaps"
+        },
+        {
+          "id": "V4",
+          "rule": "旋转角与某条轮廓边平行/垂直(容差 0.5°)",
+          "status": "PASS",
+          "detail": "all aligned"
+        },
+        {
+          "id": "V5",
+          "rule": "门未被遮挡(内开 N×N 无物体；外开不压门洞)",
+          "status": "PASS",
+          "detail": "door clear"
+        },
+        {
+          "id": "V6",
+          "rule": "冰箱开门边(面宽=length)前方净空 610mm 在房间内且无任何物体",
+          "status": "PASS",
+          "detail": "fridge front 610mm clear"
+        },
+        {
+          "id": "V7",
+          "rule": "货架/离地架四边可贴放物品(无净空要求)",
+          "status": "PASS",
+          "detail": "flushing contact is permitted and is not counted as overlap (V3)"
+        }
+      ],
+      "metrics": {
+        "itemsTouchingWall": 8,
+        "wallContactMm": 9090.0,
+        "freeAreaMm2": 3761310.0,
+        "fridgeClearanceMm": 610.0
+      },
+      "feasibleFlag": true,
+      "feasibleFlagConsistent": true
+    }
+  },
+  "example3": {
+    "input": "example3.json",
+    "result": "example3.result.json",
+    "validation": {
+      "passed": true,
+      "checks": [
+        {
+          "id": "V1",
+          "rule": "轮廓有效性(退化顶点清理后为简单多边形且面积>0)",
+          "status": "PASS",
+          "detail": "cleaned 9->8 vertices; area=11518999.20 mm^2; removed 1 duplicate point(s)"
+        },
+        {
+          "id": "V8",
+          "rule": "完整性(名称/尺寸一一对应、坐标有限)",
+          "status": "PASS",
+          "detail": "9/9 items present"
+        },
+        {
+          "id": "V2",
+          "rule": "全部物体在轮廓内(容差 1.0e-02 mm)",
+          "status": "PASS",
+          "detail": "all inside"
+        },
+        {
+          "id": "V3",
+          "rule": "两两不重叠(交叠面积 ≤ 1.0e+00 mm^2，允许贴合)",
+          "status": "PASS",
+          "detail": "no overlaps"
+        },
+        {
+          "id": "V4",
+          "rule": "旋转角与某条轮廓边平行/垂直(容差 0.5°)",
+          "status": "PASS",
+          "detail": "all aligned"
+        },
+        {
+          "id": "V5",
+          "rule": "门未被遮挡(内开 N×N 无物体；外开不压门洞)",
+          "status": "PASS",
+          "detail": "door clear"
+        },
+        {
+          "id": "V6",
+          "rule": "冰箱开门边(面宽=length)前方净空 610mm 在房间内且无任何物体",
+          "status": "PASS",
+          "detail": "fridge front 610mm clear"
+        },
+        {
+          "id": "V7",
+          "rule": "货架/离地架四边可贴放物品(无净空要求)",
+          "status": "PASS",
+          "detail": "flushing contact is permitted and is not counted as overlap (V3)"
+        }
+      ],
+      "metrics": {
+        "itemsTouchingWall": 9,
+        "wallContactMm": 9350.0,
+        "freeAreaMm2": 6686399.2,
+        "fridgeClearanceMm": 610.0
+      },
+      "feasibleFlag": true,
+      "feasibleFlagConsistent": true
+    }
+  },
+  "example4": {
+    "input": "example4.json",
+    "result": "example4.result.json",
+    "validation": {
+      "passed": true,
+      "checks": [
+        {
+          "id": "V1",
+          "rule": "轮廓有效性(退化顶点清理后为简单多边形且面积>0)",
+          "status": "PASS",
+          "detail": "cleaned 12->10 vertices; area=6572952.24 mm^2; removed spike at (182873.5924, 30542.7231); removed 1 duplicate point(s)"
+        },
+        {
+          "id": "V8",
+          "rule": "完整性(名称/尺寸一一对应、坐标有限)",
+          "status": "PASS",
+          "detail": "6/6 items present"
+        },
+        {
+          "id": "V2",
+          "rule": "全部物体在轮廓内(容差 1.0e-02 mm)",
+          "status": "PASS",
+          "detail": "all inside"
+        },
+        {
+          "id": "V3",
+          "rule": "两两不重叠(交叠面积 ≤ 1.0e+00 mm^2，允许贴合)",
+          "status": "PASS",
+          "detail": "no overlaps"
+        },
+        {
+          "id": "V4",
+          "rule": "旋转角与某条轮廓边平行/垂直(容差 0.5°)",
+          "status": "PASS",
+          "detail": "all aligned"
+        },
+        {
+          "id": "V5",
+          "rule": "门未被遮挡(内开 N×N 无物体；外开不压门洞)",
+          "status": "PASS",
+          "detail": "door clear"
+        },
+        {
+          "id": "V6",
+          "rule": "冰箱开门边(面宽=length)前方净空 610mm 在房间内且无任何物体",
+          "status": "PASS",
+          "detail": "fridge front 610mm clear"
+        },
+        {
+          "id": "V7",
+          "rule": "货架/离地架四边可贴放物品(无净空要求)",
+          "status": "PASS",
+          "detail": "flushing contact is permitted and is not counted as overlap (V3)"
+        }
+      ],
+      "metrics": {
+        "itemsTouchingWall": 6,
+        "wallContactMm": 8950.0,
+        "freeAreaMm2": 3430352.24,
+        "fridgeClearanceMm": 610.0
+      },
+      "feasibleFlag": true,
+      "feasibleFlagConsistent": true
+    }
+  }
+}
