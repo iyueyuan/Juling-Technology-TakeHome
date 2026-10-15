@@ -6,46 +6,35 @@
   "angleConvention": "deg; 0 deg = length along +x, width along +y; counter-clockwise positive",
   "placements": [
     {
-      "name": "overShelf-1",
-      "type": "overShelf",
+      "name": "fridge",
+      "type": "fridge",
       "center": [
-        4766.664,
-        32293.656
+        6456.736,
+        30660.29
       ],
-      "rotation": 195.852,
-      "length": 600.0,
-      "width": 400.0
+      "rotation": 90.0,
+      "length": 1220.0,
+      "width": 1330.0
     },
     {
-      "name": "overShelf-2",
-      "type": "overShelf",
+      "name": "iceMaker",
+      "type": "iceMaker",
       "center": [
-        5540.781,
-        29567.432
+        6741.736,
+        29625.29
       ],
-      "rotation": 195.852,
-      "length": 600.0,
-      "width": 400.0
-    },
-    {
-      "name": "overShelf-3",
-      "type": "overShelf",
-      "center": [
-        5440.043,
-        32484.863
-      ],
-      "rotation": 15.852,
-      "length": 600.0,
-      "width": 400.0
+      "rotation": 0.0,
+      "length": 760.0,
+      "width": 850.0
     },
     {
       "name": "shelf-1",
       "type": "shelf",
       "center": [
-        6209.62,
-        32703.386
+        6621.736,
+        28942.381
       ],
-      "rotation": 195.852,
+      "rotation": 0.0,
       "length": 1000.0,
       "width": 400.0
     },
@@ -53,10 +42,10 @@
       "name": "shelf-2",
       "type": "shelf",
       "center": [
-        4925.592,
-        31367.86
+        6621.736,
+        31470.29
       ],
-      "rotation": 105.852,
+      "rotation": 0.0,
       "length": 1000.0,
       "width": 400.0
     },
@@ -64,34 +53,45 @@
       "name": "shelf-3",
       "type": "shelf",
       "center": [
-        5198.746,
-        30405.89
+        5621.736,
+        31470.29
       ],
-      "rotation": 105.852,
+      "rotation": 0.0,
       "length": 1000.0,
       "width": 400.0
     },
     {
-      "name": "iceMaker",
-      "type": "iceMaker",
+      "name": "overShelf-1",
+      "type": "overShelf",
       "center": [
-        6741.736,
-        31145.29
+        5421.736,
+        31870.29
       ],
       "rotation": 0.0,
-      "length": 760.0,
-      "width": 850.0
+      "length": 600.0,
+      "width": 400.0
     },
     {
-      "name": "fridge",
-      "type": "fridge",
+      "name": "overShelf-2",
+      "type": "overShelf",
       "center": [
-        6510.256,
-        29407.065
+        6021.736,
+        31870.29
       ],
-      "rotation": 179.9746,
-      "length": 1220.0,
-      "width": 1330.0
+      "rotation": 0.0,
+      "length": 600.0,
+      "width": 400.0
+    },
+    {
+      "name": "overShelf-3",
+      "type": "overShelf",
+      "center": [
+        6621.736,
+        31870.29
+      ],
+      "rotation": 0.0,
+      "length": 600.0,
+      "width": 400.0
     }
   ]
 }

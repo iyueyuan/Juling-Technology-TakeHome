@@ -7,30 +7,16 @@ import unittest
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 from solve import geom, model, solver, validator
+from solve.tests.helpers import load, serialize, solve_cached
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 INPUT = os.path.join(ROOT, "Input")
 
 
-def _serialize(result):
-    return {
-        "feasible": result.feasible,
-        "reason": result.reason,
-        "unit": "mm",
-        "placements": [
-            {"name": p.item.name, "type": p.item.kind,
-             "center": [round(p.center[0], 3), round(p.center[1], 3)],
-             "rotation": round(p.angle, 4),
-             "length": p.item.length, "width": p.item.width}
-            for p in result.placements
-        ],
-    }
-
-
 def _solve(k):
-    problem = model.load_problem(os.path.join(INPUT, "example%d.json" % k))
-    result = solver.solve(problem, solver.Config(time_limit=30))
-    return problem, _serialize(result)
+    """Cached solve (deep-copied so tests may mutate the result freely)."""
+    problem, _result, out = solve_cached(k, orientation="axis")
+    return problem, copy.deepcopy(out)
 
 
 def _status(vr, cid):

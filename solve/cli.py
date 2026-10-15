@@ -12,12 +12,13 @@ from .model import Problem
 
 def make_config(args) -> solver.Config:
     cfg = solver.Config(
-        orientation=getattr(args, "orientation", "auto"),
+        orientation=getattr(args, "orientation", "axis"),
         fridge_clearance=getattr(args, "fridge_front_clearance_mm", None),
         time_limit=getattr(args, "time_limit", 25.0),
         beam=getattr(args, "beam", 40),
         branch=getattr(args, "branch", 50),
         seed=getattr(args, "seed", 0),
+        dfs_nodes=getattr(args, "dfs_nodes", 0),
     )
     if hasattr(args, "wall_step"):
         cfg.wall_step = args.wall_step
@@ -48,10 +49,13 @@ def serialize_result(result: solver.Result, problem: Problem) -> Dict:
 
 
 def _add_common_args(ap: argparse.ArgumentParser) -> None:
-    ap.add_argument("--orientation", choices=["auto", "axis"], default="auto")
+    ap.add_argument("--orientation", choices=["axis", "auto"], default="axis",
+                    help="axis: 只允许 0/90（默认）；auto: 额外允许与斜墙平行/垂直的倾斜摆放")
     ap.add_argument("--fridge-front-clearance-mm", type=float, default=None)
     ap.add_argument("--beam", type=int, default=40)
     ap.add_argument("--branch", type=int, default=50)
+    ap.add_argument("--dfs-nodes", type=int, default=0,
+                    help=">0 时额外做一次节点数为该值的 DFS 质量优化（更慢，结果确定性不变）")
     ap.add_argument("--time-limit", type=float, default=25.0)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--wall-step", type=float, default=100.0)

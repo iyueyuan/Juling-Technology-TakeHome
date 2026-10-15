@@ -16,7 +16,7 @@ CONTACT_MEASURE_TOL = 1e-3  # mm, for measuring wall/item contact lengths
 
 @dataclass
 class Config:
-    orientation: str = "auto"                 # auto | axis
+    orientation: str = "axis"                 # axis | auto
     fridge_clearance: Optional[float] = None  # None -> length/2
     min_wall_len: float = 500.0
     beam: int = 40
@@ -26,6 +26,7 @@ class Config:
     wall_step: float = 100.0
     max_pool: int = 500
     node_budget: int = 1500000
+    dfs_nodes: int = 0     # 0 = DFS only as a completeness fallback (>0 adds a quality pass)
     time_limit: float = 25.0
     seed: int = 0
     _grid_enabled: bool = False
@@ -93,9 +94,14 @@ def _item_orders(items: List[Item]) -> List[List[Item]]:
 
 # --- geometry helpers -------------------------------------------------------
 def _allowed_angles(problem: Problem, config: Config) -> List[float]:
-    if config.orientation == "axis":
-        return [0.0, 90.0]
-    return list(problem.room.allowed_angles)
+    """Item orientations for interior (grid) candidates, normalised to [0, 180)."""
+    src = [0.0, 90.0] if config.orientation == "axis" else list(problem.room.allowed_angles)
+    out: List[float] = []
+    for a in src:
+        a = a % 180.0
+        if all(abs(a - x) > 1e-6 for x in out):
+            out.append(a)
+    return out
 
 
 def _axes(angle: float) -> Tuple[Point, Point]:
@@ -170,13 +176,17 @@ def _dedup(placements: List[Placement]) -> List[Placement]:
 
 
 def _surface_angles(edge_ang: float, config: Config) -> Tuple[float, ...]:
-    """Item orientations to try against a surface of direction ``edge_ang``."""
+    """Item orientations to try against a surface of direction ``edge_ang``.
+
+    Angles are normalised to [0, 180): a rectangle is invariant under a 180 deg
+    rotation, so this removes geometrically duplicate candidates.
+    """
     if config.orientation == "axis":
         # strict 0/90 mode: a slanted surface cannot host a flush axis-aligned item
         if min(geom.mod90_diff(edge_ang, 0.0), geom.mod90_diff(edge_ang, 90.0)) > geom.AXIS_SNAP_TOL:
             return ()
         return (0.0, 90.0)
-    return (edge_ang, geom.normalize_angle(edge_ang + 90.0))
+    return (edge_ang % 180.0, (edge_ang + 90.0) % 180.0)
 
 
 def _wall_candidates(item: Item, room: Room, door: Door, config: Config) -> List[Placement]:
@@ -325,7 +335,7 @@ def _static_key(p: Placement) -> Tuple[float, ...]:
     return (-p.wall_mm, p.dmin, p.center[0], p.center[1])
 
 
-def _dfs(problem: Problem, order: List[Item], config: Config, deadline: float):
+def _dfs(problem: Problem, order: List[Item], config: Config, deadline: float, node_cap: int):
     """Depth-first search with backtracking; keeps the best layout, stops early on all-on-wall."""
     room, door = problem.room, problem.door
     allowed = _allowed_angles(problem, config)
@@ -348,7 +358,7 @@ def _dfs(problem: Problem, order: List[Item], config: Config, deadline: float):
 
     def rec(idx: int, placed: List[Placement], score: Tuple[float, ...]):
         nodes[0] += 1
-        if done[0] or nodes[0] > config.node_budget or time.time() > deadline:
+        if done[0] or nodes[0] > node_cap or time.time() > deadline:
             return
         if idx == n_items:
             best[0] = list(placed)
@@ -431,22 +441,27 @@ def _beam(problem: Problem, order: List[Item], config: Config, deadline: float):
 def _try_strategies(problem: Problem, config: Config, deadline: float):
     labels = ["fridge-first", "area-desc", "area-asc"]
     orders = _item_orders(problem.items)
-    # beam first (fast optimisation), then DFS (completeness)
     best = None
+    # 1) beam first: fast, and good at optimising the wall-hugging score
     for order, label in zip(orders, labels):
         if time.time() > deadline:
             break
         r = _beam(problem, order, config, deadline)
         if r is not None and (best is None or r[1] > best[1]):
             best = (r[0], r[1], label + "/beam")
-    if best is not None:
-        return best
-    for order, label in zip(orders, labels):
-        if time.time() > deadline:
-            break
-        r = _dfs(problem, order, config, deadline)
-        if r is not None and (best is None or r[1] > best[1]):
-            best = (r[0], r[1], label + "/dfs")
+    if best is not None and best[1][0] >= len(problem.items):
+        return best  # every item already touches a wall -> nothing left to optimise
+    # 2) DFS: completeness fallback when the beam could not place everything; with
+    #    --dfs-nodes > 0 it also acts as an optional (slower) quality pass.
+    if best is None:
+        r = _dfs(problem, orders[0], config, deadline, config.node_budget)
+        if r is not None:
+            return (r[0], r[1], labels[0] + "/dfs")
+        return None
+    if config.dfs_nodes > 0 and time.time() <= deadline:
+        r = _dfs(problem, orders[0], config, deadline, config.dfs_nodes)
+        if r is not None and r[1] > best[1]:
+            best = (r[0], r[1], labels[0] + "/dfs")
     return best
 
 

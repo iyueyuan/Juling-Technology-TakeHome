@@ -6,44 +6,22 @@
   "angleConvention": "deg; 0 deg = length along +x, width along +y; counter-clockwise positive",
   "placements": [
     {
-      "name": "overShelf-1",
-      "type": "overShelf",
+      "name": "fridge",
+      "type": "fridge",
       "center": [
-        56098.31,
-        29783.107
+        56563.31,
+        36063.106
       ],
-      "rotation": 270.0,
-      "length": 600.0,
-      "width": 400.0
-    },
-    {
-      "name": "overShelf-2",
-      "type": "overShelf",
-      "center": [
-        56898.31,
-        29783.107
-      ],
-      "rotation": 270.0,
-      "length": 600.0,
-      "width": 400.0
-    },
-    {
-      "name": "overShelf-3",
-      "type": "overShelf",
-      "center": [
-        57848.31,
-        37253.106
-      ],
-      "rotation": 270.0,
-      "length": 600.0,
-      "width": 400.0
+      "rotation": 90.0,
+      "length": 1220.0,
+      "width": 1330.0
     },
     {
       "name": "shelf-1",
       "type": "shelf",
       "center": [
         56098.31,
-        31583.107
+        29983.107
       ],
       "rotation": 90.0,
       "length": 1000.0,
@@ -53,10 +31,10 @@
       "name": "shelf-2",
       "type": "shelf",
       "center": [
-        56098.31,
-        32583.107
+        57548.31,
+        37353.106
       ],
-      "rotation": 270.0,
+      "rotation": 0.0,
       "length": 1000.0,
       "width": 400.0
     },
@@ -65,9 +43,9 @@
       "type": "shelf",
       "center": [
         56098.31,
-        33583.107
+        32483.107
       ],
-      "rotation": 270.0,
+      "rotation": 90.0,
       "length": 1000.0,
       "width": 400.0
     },
@@ -76,7 +54,7 @@
       "type": "shelf",
       "center": [
         56098.31,
-        30583.107
+        33483.107
       ],
       "rotation": 90.0,
       "length": 1000.0,
@@ -87,22 +65,44 @@
       "type": "shelf",
       "center": [
         56098.31,
-        34953.106
+        34483.107
       ],
       "rotation": 90.0,
       "length": 1000.0,
       "width": 400.0
     },
     {
-      "name": "fridge",
-      "type": "fridge",
+      "name": "overShelf-1",
+      "type": "overShelf",
       "center": [
-        56563.31,
-        36063.106
+        56098.31,
+        30783.107
       ],
       "rotation": 90.0,
-      "length": 1220.0,
-      "width": 1330.0
+      "length": 600.0,
+      "width": 400.0
+    },
+    {
+      "name": "overShelf-2",
+      "type": "overShelf",
+      "center": [
+        56098.31,
+        31383.107
+      ],
+      "rotation": 90.0,
+      "length": 600.0,
+      "width": 400.0
+    },
+    {
+      "name": "overShelf-3",
+      "type": "overShelf",
+      "center": [
+        56898.31,
+        29953.106
+      ],
+      "rotation": 90.0,
+      "length": 600.0,
+      "width": 400.0
     }
   ]
 }

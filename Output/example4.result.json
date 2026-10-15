@@ -6,15 +6,37 @@
   "angleConvention": "deg; 0 deg = length along +x, width along +y; counter-clockwise positive",
   "placements": [
     {
-      "name": "fridge",
-      "type": "fridge",
+      "name": "overShelf-1",
+      "type": "overShelf",
       "center": [
-        183483.592,
-        32437.723
+        183073.592,
+        29842.723
       ],
-      "rotation": 180.0,
-      "length": 1220.0,
-      "width": 1330.0
+      "rotation": 90.0,
+      "length": 600.0,
+      "width": 400.0
+    },
+    {
+      "name": "overShelf-2",
+      "type": "overShelf",
+      "center": [
+        184173.592,
+        30242.723
+      ],
+      "rotation": 90.0,
+      "length": 600.0,
+      "width": 400.0
+    },
+    {
+      "name": "overShelf-3",
+      "type": "overShelf",
+      "center": [
+        184573.592,
+        30942.723
+      ],
+      "rotation": 90.0,
+      "length": 600.0,
+      "width": 400.0
     },
     {
       "name": "shelf-1",
@@ -31,45 +53,23 @@
       "name": "shelf-2",
       "type": "shelf",
       "center": [
-        184173.592,
-        30042.723
+        183873.592,
+        29742.723
       ],
-      "rotation": 270.0,
+      "rotation": 0.0,
       "length": 1000.0,
       "width": 400.0
     },
     {
-      "name": "overShelf-1",
-      "type": "overShelf",
+      "name": "fridge",
+      "type": "fridge",
       "center": [
-        184473.592,
-        30842.723
+        183483.592,
+        32437.723
       ],
-      "rotation": 180.0,
-      "length": 600.0,
-      "width": 400.0
-    },
-    {
-      "name": "overShelf-2",
-      "type": "overShelf",
-      "center": [
-        183073.592,
-        29842.723
-      ],
-      "rotation": 90.0,
-      "length": 600.0,
-      "width": 400.0
-    },
-    {
-      "name": "overShelf-3",
-      "type": "overShelf",
-      "center": [
-        183073.592,
-        30442.723
-      ],
-      "rotation": 270.0,
-      "length": 600.0,
-      "width": 400.0
+      "rotation": 0.0,
+      "length": 1220.0,
+      "width": 1330.0
     }
   ]
 }
